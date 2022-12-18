@@ -9,14 +9,14 @@ s.connect((HOST, PORT))
 def mailclientrun():
 
     while True:
+        data = s.recv(1024).decode()
+        print(f"server reply: {data}")
         cmd = input("Please input msg: ")
         s.send(cmd.encode("utf-8"))
-        data = s.recv(1024).decode()
 
         if  cmd == 'bye':
             s.close()
             break
-        print(f"server reply: {data}")
 
 if __name__ == '__main__':
     mailclientrun()

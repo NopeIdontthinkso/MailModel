@@ -1,0 +1,7 @@
+import logging
+
+HOST = "127.0.0.1"
+PORT = 8888
+BUFFER_SIZE = 32
+MAX_CLIENT_NUM = 1
+LOG_LEVEL = logging.DEBUG

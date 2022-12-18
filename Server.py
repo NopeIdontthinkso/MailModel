@@ -1,16 +1,26 @@
 import socket
+import json
+import constants
 
-bind_ip = "127.0.0.1"
-bind_port = 8888
-
-server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-server.bind((bind_ip, bind_port))
-server.listen(5)
-
-print(f"[*] Listening on {bind_ip}:{bind_port}")
+class Server():
+    def __init__(self):
+        self.bind_ip = constants.HOST
+        self.bind_port = constants.PORT
+        server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        server.bind((self.bind_ip, self.bind_port))
+        server.listen(constants.MAX_CLIENT_NUM)
 
 def mailserverrun():
-
+    #userdata
+    user_dict = None
+    with open('./user_dict.json', 'w') as f:
+        s = f.read()
+        user_dict = json.loads(s)
+        print(user_dict)
+    #build server
+    server = Server()
+    print(f"[*] Listening on {server.bind_ip}:{server.bind_port}")
+    #talking to client
     while True:
         conn, addr = server.accept()
         login(conn)
@@ -25,15 +35,10 @@ def mailserverrun():
             conn.send("ACK!".encode())
 
 def login(conn):
-    while True:
-        conn.send("Log in?(Y/N)".encode())
-        data = conn.recv(1024).decode("utf-8").strip()
-        if data == 'Y':
-            break
-        elif data == 'N':
-            conn.send("so why do you open this".encode())
-        else:
-            conn.send("cannot read your order".encode())
+    conn.send(f"Log in...\naccount:".encode())
+    data = conn.recv(1024).decode("utf-8").strip()
+    # if data not in  
+
 
 if __name__ == '__main__':
     mailserverrun()
