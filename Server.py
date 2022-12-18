@@ -31,9 +31,9 @@ def login(conn):
         if data == 'Y':
             break
         elif data == 'N':
-            conn.send("so why the fuck do you open this".encode())
+            conn.send("so why do you open this".encode())
         else:
-            conn.send("cannot read your shit".encode())
+            conn.send("cannot read your order".encode())
 
 if __name__ == '__main__':
     mailserverrun()
